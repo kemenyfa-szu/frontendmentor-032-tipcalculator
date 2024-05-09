@@ -22,6 +22,12 @@ body {
   color: $dark-grayish-cyan;
 }
 
-input {
+input,
+button {
   font-family: inherit;
+  cursor: pointer;
+}
+
+footer {
+  display: none;
 }

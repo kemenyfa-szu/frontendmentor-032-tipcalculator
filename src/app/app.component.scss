@@ -2,27 +2,84 @@
 
 header {
   text-align: center;
-  margin-block: 1rem;
+  margin-block: 2rem 1.5rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
 }
 
 .calculator {
   background-color: colors.$white;
-  padding: 1.5rem;
+  padding: 1rem;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 }
 
-label {
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0.35rem;
+  margin-bottom: 0;
+}
+
+.input-name {
+  display: block;
   font-size: 0.675rem;
   font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 input {
   display: block;
+
+  &[type="number"] {
+    text-align: end;
+  }
 }
 
-/* Hiding number input spinners*/
-/* Chrome, Safari, Edge, Opera */
+input.decorated {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position-x: 0.75em;
+  background-position-y: center;
+}
+
+#bill-amount {
+  background-image: url("../assets/images/icon-dollar.svg");
+}
+
+#number-of-people {
+  background-image: url("../assets/images/icon-person.svg");
+}
+
+input[type="radio"] {
+  width: 0;
+  opacity: 0;
+  display: inline-block;
+}
+
+label:has(input[type="radio"]) {
+  font-size: 1rem;
+  color: colors.$very-light-grayish-cyan;
+  background-color: colors.$very-dark-cyan;
+  text-align: center;
+  cursor: pointer;
+  padding: 0.25em;
+}
+
+label:has(input[type="radio"]:focus),
+label:has(input[type="radio"]:checked) {
+  background-color: colors.$strong-cyan;
+  color: colors.$very-dark-cyan;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -30,8 +87,151 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Firefox */
 input[type="number"] {
+  display: inline-block;
   appearance: textfield;
   -moz-appearance: textfield;
+  width: calc(100% - 1em);
+
+  color: colors.$very-dark-cyan;
+  background-color: steelblue;
+  background-color: colors.$very-light-grayish-cyan;
+  font-weight: 700;
+
+  padding: 0.25em 0.5em;
+
+  &::placeholder {
+    color: colors.$grayish-cyan;
+  }
+}
+
+input[type="number"],
+label:has(input[type="radio"]) {
+  font-size: 1rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: 700;
+}
+
+.select-percentage {
+  border: none;
+}
+
+.percentages {
+  margin-top: 0.45rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+
+.outputs {
+  background-color: colors.$very-dark-cyan;
+  padding: 1rem;
+  padding-top: 1.55rem;
+  border-radius: 15px;
+}
+
+.output {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.65rem;
+
+  .label {
+    color: colors.$white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    em {
+      display: block;
+      font-size: 0.85em;
+      color: colors.$dark-grayish-cyan;
+      font-style: normal;
+    }
+  }
+
+  .value {
+    font-size: 1.5rem;
+    color: colors.$strong-cyan;
+    font-weight: 700;
+  }
+}
+
+button {
+  font-size: 0.875rem;
+  color: colors.$very-dark-cyan;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-family: inherit;
+  display: block;
+  border: none;
+  background-color: colors.$strong-cyan;
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 7px;
+  margin-top: 1.125rem;
+}
+
+label:has(input[type="radio"]):hover,
+button:hover:not([disabled]) {
+  color: colors.$very-dark-cyan;
+  background-color: colors.$light-grayish-cyan;
+}
+
+button[disabled] {
+  cursor: no-drop;
+  opacity: 0.25;
+}
+
+input[type="number"]:hover,
+input[type="number"]:focus {
+  outline: 2px solid colors.$strong-cyan;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (width > 50rem) {
+  header {
+    margin-block: 6.75rem 3.25rem;
+  }
+
+  .calculator {
+    width: 80%;
+    padding: 1.25rem;
+    max-width: 36rem;
+    border-radius: 25px;
+  }
+
+  form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .inputs {
+    padding: 0.5rem;
+    gap: 1.5rem;
+  }
+
+  .percentages {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .outputs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.75rem;
+  }
+
+  .output .value {
+    font-size: 2.125rem;
+  }
 }

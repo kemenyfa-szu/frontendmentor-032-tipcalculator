@@ -3,69 +3,126 @@
 </header>
 <main>
   <article class="calculator">
-    <form action="">
-      <section class="input">
-        <label for="bill-amount">Bill</label>
-        <input type="number" id="bill-amount" name="bill-amount" />
-        <div class="percentage">
-          <p for="tip-percentage">Select Tip %</p>
+    <form
+      action=""
+      novalidate
+      onsubmit="return false;"
+      [formGroup]="calculatorForm"
+    >
+      <section class="inputs">
+        <div class="field">
+          <label for="bill-amount" class="input-name">Bill</label>
           <input
-            type="radio"
-            name="tip-percentage"
-            id="percentage1"
-            value="5"
-          />
-          <label for="percentage1">5%</label>
-          <input
-            type="radio"
-            name="tip-percentage"
-            id="percentage2"
-            value="10"
-          />
-          <label for="percentage2">10%</label>
-          <input
-            type="radio"
-            name="tip-percentage"
-            id="percentage3"
-            value="15"
-          />
-          <label for="percentage3">15%</label>
-          <input
-            type="radio"
-            name="tip-percentage"
-            id="percentage4"
-            value="25"
-          />
-          <label for="percentage4">25%</label>
-          <input
-            type="radio"
-            name="tip-percentage"
-            id="percentage5"
-            value="50"
-          />
-          <label for="percentage5">50%</label>
-          <input
+            class="decorated"
             type="number"
-            name="tip-percentage"
-            id="percentage-custom"
-            placeholder="Custom"
+            id="bill-amount"
+            placeholder="0"
+            formControlName="billAmount"
+            (keyup)="calculateOutput($event)"
           />
         </div>
 
-        <label for="number-of-people">Number of People</label>
-        <input type="number" name="number-of-people" id="number-of-people" />
+        <fieldset class="select-percentage field">
+          <legend class="input-name">Select Tip %</legend>
+          <div class="percentages">
+            <label>
+              <input
+                type="radio"
+                id="percentage1"
+                value="5"
+                formControlName="tipPercentage"
+                (change)="calculateOutput($event)"
+              />5%</label
+            >
+
+            <label
+              ><input
+                type="radio"
+                id="percentage2"
+                value="10"
+                formControlName="tipPercentage"
+                (change)="calculateOutput($event)"
+              />10%</label
+            >
+
+            <label
+              ><input
+                type="radio"
+                id="percentage3"
+                value="15"
+                formControlName="tipPercentage"
+                (change)="calculateOutput($event)"
+              />15%</label
+            >
+
+            <label
+              ><input
+                type="radio"
+                id="percentage4"
+                value="25"
+                formControlName="tipPercentage"
+                (change)="calculateOutput($event)"
+              />25%</label
+            >
+
+            <label
+              ><input
+                type="radio"
+                id="percentage5"
+                value="50"
+                formControlName="tipPercentage"
+                (change)="calculateOutput($event)"
+              />50%</label
+            >
+
+            <div class="">
+              <label for="customPercentage" class="sr-only">Custom %</label>
+              <input
+                type="number"
+                id="customPercentage"
+                placeholder="Custom"
+                max="99"
+                formControlName="tipPercentage"
+                (keyup)="calculateOutput($event)"
+              />
+              <!-- (keydown)="uncheckTipRadios()" -->
+            </div>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="number-of-people" class="input-name"
+            >Number of People</label
+          >
+          <input
+            class="decorated"
+            type="number"
+            id="number-of-people"
+            placeholder="0"
+            formControlName="numOfPeople"
+            (keyup)="calculateOutput($event)"
+          />
+        </div>
       </section>
       <section class="outputs">
-        <div class="output">
-          <p class="label">Tip Amount <em>/ person</em></p>
-          <p class="value">${{ 0.0 }}</p>
+        <div class="data">
+          <div class="output">
+            <p class="label">Tip Amount <em>/ person</em></p>
+            <p class="value">
+              <strong>{{ tipAmountPerPerson | currency }}</strong>
+            </p>
+          </div>
+          <div class="output">
+            <p class="label">Total <em>/ person</em></p>
+            <p class="value">
+              <strong>{{ totalPerPerson | currency }}</strong>
+            </p>
+          </div>
         </div>
-        <div class="output">
-          <p class="label">Total <em>/ person</em></p>
-          <p class="value">${{ 0.0 }}</p>
-        </div>
+        <button type="submit" (click)="resetForm()" [disabled]="isDefault()">
+          Reset
+        </button>
       </section>
-      <button type="submit">Reset</button>
     </form>
   </article>
 </main>

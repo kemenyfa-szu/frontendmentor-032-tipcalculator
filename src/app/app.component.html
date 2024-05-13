@@ -6,19 +6,25 @@
     <form
       action=""
       novalidate
-      onsubmit="return false;"
       [formGroup]="calculatorForm"
+      (submit)="OnSubmit()"
     >
       <section class="inputs">
         <div class="field">
-          <label for="bill-amount" class="input-name">Bill</label>
+          <div class="field-info">
+            <label for="bill-amount" class="input-name">Bill</label>
+            <p *ngIf="isFieldInvalid('billAmount')" class="error-message error">
+              {{ getFieldError("billAmount") }}
+            </p>
+          </div>
+
           <input
             class="decorated"
             type="number"
             id="bill-amount"
             placeholder="0"
             formControlName="billAmount"
-            (keyup)="calculateOutput($event)"
+            [class.invalid]="isFieldInvalid('billAmount')"
           />
         </div>
 
@@ -31,7 +37,6 @@
                 id="percentage1"
                 value="5"
                 formControlName="tipPercentage"
-                (change)="calculateOutput($event)"
               />5%</label
             >
 
@@ -41,7 +46,6 @@
                 id="percentage2"
                 value="10"
                 formControlName="tipPercentage"
-                (change)="calculateOutput($event)"
               />10%</label
             >
 
@@ -51,7 +55,6 @@
                 id="percentage3"
                 value="15"
                 formControlName="tipPercentage"
-                (change)="calculateOutput($event)"
               />15%</label
             >
 
@@ -61,7 +64,6 @@
                 id="percentage4"
                 value="25"
                 formControlName="tipPercentage"
-                (change)="calculateOutput($event)"
               />25%</label
             >
 
@@ -71,7 +73,6 @@
                 id="percentage5"
                 value="50"
                 formControlName="tipPercentage"
-                (change)="calculateOutput($event)"
               />50%</label
             >
 
@@ -81,26 +82,34 @@
                 type="number"
                 id="customPercentage"
                 placeholder="Custom"
-                max="99"
-                formControlName="tipPercentage"
-                (keyup)="calculateOutput($event)"
+                formControlName="customTipPercentage"
+                [class.invalid]="isFieldInvalid('customTipPercentage')"
               />
-              <!-- (keydown)="uncheckTipRadios()" -->
             </div>
           </div>
         </fieldset>
 
         <div class="field">
-          <label for="number-of-people" class="input-name"
-            >Number of People</label
-          >
+          <div class="field-info">
+            <label for="number-of-people" class="input-name"
+              >Number of People</label
+            >
+
+            <p
+              *ngIf="isFieldInvalid('numOfPeople')"
+              class="error-message error"
+            >
+              {{ getFieldError("numOfPeople") }}
+            </p>
+          </div>
+
           <input
             class="decorated"
             type="number"
             id="number-of-people"
             placeholder="0"
             formControlName="numOfPeople"
-            (keyup)="calculateOutput($event)"
+            [class.invalid]="isFieldInvalid('numOfPeople')"
           />
         </div>
       </section>
@@ -119,9 +128,7 @@
             </p>
           </div>
         </div>
-        <button type="submit" (click)="resetForm()" [disabled]="isDefault()">
-          Reset
-        </button>
+        <button type="submit" [disabled]="isDefault()">Reset</button>
       </section>
     </form>
   </article>

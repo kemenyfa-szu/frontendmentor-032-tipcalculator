@@ -75,6 +75,7 @@ label:has(input[type="radio"]) {
   cursor: pointer;
   padding: 0.25em;
 }
+
 label:has(input[type="radio"]:focus) {
   outline: 2px solid tomato;
   outline-offset: 2px;
@@ -107,6 +108,21 @@ input[type="number"] {
 
   &::placeholder {
     color: colors.$grayish-cyan;
+  }
+
+  &:hover,
+  &:focus {
+    outline: 2px solid colors.$strong-cyan;
+  }
+
+  &.invalid {
+    border-color: orangered;
+    outline: 2px solid orangered;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 10px orangered;
+    }
   }
 }
 
@@ -174,38 +190,37 @@ button {
   padding: 0.5em;
   border-radius: 7px;
   margin-top: 1.125rem;
+
+  &[disabled] {
+    cursor: no-drop;
+    opacity: 0.25;
+  }
 }
 
 label:has(input[type="radio"]):hover,
 button:hover:not([disabled]) {
   color: colors.$very-dark-cyan;
-  background-color: colors.$light-grayish-cyan;
+  background-color: colors.$hover;
 }
 
-button[disabled] {
-  cursor: no-drop;
-  opacity: 0.25;
+.field-info {
+  display: flex;
+  justify-content: space-between;
 }
 
-input[type="number"]:hover,
-input[type="number"]:focus {
-  outline: 2px solid colors.$strong-cyan;
-}
+.error-message {
+  display: none;
+  text-align: right;
+  color: orangered;
 
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  &.error {
+    display: block;
+  }
 }
 
 @media (width > 50rem) {
   header {
-    margin-block: 6.75rem 3.25rem;
+    margin-block: 4.75rem 3.25rem;
   }
 
   .calculator {
@@ -238,30 +253,5 @@ input[type="number"]:focus {
 
   .output .value {
     font-size: 2.125rem;
-  }
-}
-
-.field-info {
-  display: flex;
-  justify-content: space-between;
-}
-
-.error-message {
-  display: none;
-  text-align: right;
-  color: orangered;
-
-  &.error {
-    display: block;
-  }
-}
-
-input[type="number"].invalid {
-  border-color: orangered;
-  outline: 2px solid orangered;
-
-  &:hover,
-  &:focus {
-    box-shadow: 0 0 10px orangered;
   }
 }

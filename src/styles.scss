@@ -1,5 +1,6 @@
 $strong-cyan: hsl(172, 67%, 45%);
 
+$hover: hsl(173, 61%, 77%);
 $very-dark-cyan: hsl(183, 100%, 15%);
 $dark-grayish-cyan: hsl(186, 14%, 43%);
 $grayish-cyan: hsl(184, 14%, 56%);
@@ -30,4 +31,21 @@ button {
 
 footer {
   display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (width > 50rem) {
+  body {
+    padding: min(2rem, 5vw);
+  }
 }
